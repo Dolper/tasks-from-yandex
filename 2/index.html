@@ -1,0 +1,102 @@
+<div id="block">1</div>
+<div id="wrapper">2</div>
+<div class="box yellow">3</div>
+<div class="box">4</div>
+
+<style>
+.box {background-color: aqua;}
+.box.red {background-color: red;}}
+.box.yellow {background-color: black !important;}
+</style>
+
+<script>
+var o_O = function(str){
+	if(str.match(/\./)!=null){
+		return document.getElementsByClassName(str.replace('\.', ''));
+	}
+	
+	if(str.match(/#/)!=null){
+		return document.getElementById(str.replace('#', ''));
+	}
+	
+	if(str.match(/#/)==null && str.match(/\./)==null ){
+		return document.getElementsByTagName(str);
+	}
+
+};
+
+function animate(inst, prop, from, to, duration)
+{
+var start = new Date().getTime(); // Время старта
+setTimeout(function() {
+    var now = (new Date().getTime()) - start; // Текущее время
+    var progress = now / duration; // Прогресс анимации
+    var result = (to - from) * progress + from;
+    switch(prop)
+	{
+		case 'opacity':
+			inst.style.opacity = result;
+		break;
+	}
+    if (progress < 1) // Если анимация не закончилась, продолжаем
+        setTimeout(arguments.callee, 10);
+}, 10);
+}
+
+function getClassReg(className)
+{
+	return new RegExp('(\\s|^)'+className+'(\\s|$)');
+};
+
+HTMLElement.prototype.hide = function(prop, duration){
+	animate(this, prop, 1, 0, duration);
+}
+
+HTMLElement.prototype.show = function(prop, duration){
+	animate(this, prop, 0, 1, duration);
+}
+
+HTMLElement.prototype.hasClass = function (className) {
+	return this.className.match(getClassReg(className));
+};
+
+/** Добавление класса. Если нет - то добавится
+	@className - имя класса который надо добавить
+*/
+HTMLElement.prototype.addClass = function (newClass) {
+    if (this.hasClass(newClass)) return this;
+    else {
+        this.className = this.className + ' ' + newClass;
+        return this;
+    }
+};
+
+/** Удаление класса. Если есть - то удалится
+	@className - имя класса который надо удалить
+*/
+HTMLElement.prototype.removeClass = function (className) {
+    this.className=this.className.replace(getClassReg(className),'');
+};
+
+/** Переключение класса. Если есть - то удалится, елси нет - то добавится
+	@className - имя класса который надо переключить
+*/
+HTMLElement.prototype.toggleClass = function (className) {
+    if (this.hasClass(className)) this.removeClass(className); else this.addClass(className);	
+};
+
+for(var i = 0; i<o_O('div').length; i+=1){
+o_O('div')[i].style.width = '100px';
+o_O('div')[i].style.height = '100px';
+}
+
+o_O('#block').style.backgroundColor = 'blue';
+o_O('#block').hide('opacity', 5000);
+
+o_O('#wrapper').style.backgroundColor = 'green';
+o_O('#wrapper').style.opacity = 0;
+o_O('#wrapper').show('opacity', 5000);
+
+o_O('.box')[0].removeClass('yellow');
+o_O('.box')[1].toggleClass('red');
+</script>

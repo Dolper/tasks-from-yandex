@@ -1,0 +1,84 @@
+@font-face {
+    font-family: pop; /* имя шрифта для CSS правил */
+    src: local("pop"), /* проверяем наличие шрифта в ОС пользователя */
+         url(../fonts/pop.ttf); /* если шрифт не установлен, тогда загружаем его по указанному пути */
+  }
+
+body
+{
+font-size: 12px;
+}
+
+#cardsWrapper
+{
+margin: 0 auto;
+width: 300px;
+}
+
+#routeWrapper
+{
+margin: 0 auto;
+width: 600px;
+}
+
+
+.card
+{
+padding: 5px;
+margin: 5px 0;
+min-height: 30px;
+width: 200px;
+background: black;
+color: yellow;
+border: 5px double;
+}
+
+.card .icon
+{
+height: 25px;
+width: 25px;
+float: left;
+}
+
+.card .label
+{
+font-family: 'pop';
+margin-left: 12px;
+float: left;
+}
+
+
+/* Styles for ship */
+.card.ship{
+	border-color: #6495ed;
+}
+.card.ship .icon{
+	background: url(../images/ship.png);
+	background-size: 25px 25px;
+}
+
+
+/* Styles for train */
+.card.train{
+	border-color: #af8a69;
+}
+.card.train .icon{
+	background: url(../images/train.png);
+	background-size: 25px 25px;
+}
+
+
+/* Styles for plane */
+.card.plane{
+	border-color: #b5d9ff;
+}
+.card.plane .icon{
+	background: url(../images/plane.png);
+	background-size: 25px 25px;
+}
+
+
+.error
+{
+	color: red;
+}

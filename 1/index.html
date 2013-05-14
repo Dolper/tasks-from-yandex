@@ -1,0 +1,149 @@
+<! DOCTYPE HTML>
+<head>
+    <meta charset="utf-8">
+    <title>Сортировщик карточек путешественника</title>
+   <link rel="stylesheet" href="styles/style.css">
+    <script src="js/sortCards.js"></script>
+</head>
+<body>
+<div id="cardsWrapper"></div>
+<button id="valid">Валидный набор карточек</button>
+<button id="invalid">Не Валидный набор карточек</button>
+<div id="routeWrapper"></div>
+<script language="javascript" type="text/javascript">
+    /*
+		Набор карточек для тестирования
+    */
+    var cardsOk, //- "выполнение удачное!"
+		cardsErr; //- "выполнение с ошибкой!"
+
+		cardsOk = [
+        {
+            'from': 'RU-moscow', 
+            'fromTitle': 'РФ, Москва Киевский вокзал',
+            'to': 'GB-london', 
+            'toTitle': 'GB, London Victoria Station',
+			'type': 'train',
+			'other': {
+				'number': '443',
+				'wagon': '4',
+				'seat': '14',
+				'linen': true
+			}
+        },
+        {
+            'from': 'FR-paris',
+            'fromTitle': 'FR, Gare Port Lazare',
+            'to': 'RU-moscow',
+            'toTitle': 'РФ, Москва Речной вокзал',
+			'type': 'ship',
+			'other': {
+				'name': 'Victoria',
+				'deck': '1',
+				'cabin': '175'
+			}
+        },
+        {
+            'from': 'ES-talin',
+            'fromTitle': 'ES, Talin Seaport Station',
+            'to': 'RU-magadan',
+            'toTitle': 'РФ, Магадан Аэропорт Чарухино',
+			'type': 'plane',
+			'other': {
+				'number': '266',
+				'seat': 'F17',
+				'food': false
+			}
+        },
+        {
+            'from': 'US-chicago',
+            'fromTitle': 'US, Chicago Nation Station',
+            'to': 'FR-paris',
+            'toTitle': 'FR, Gare St. Lazare',
+			'type': 'plane',
+			'other': {
+				'number': '75',
+				'seat': 'A43',
+				'food': true
+			}
+        },
+        {
+            'from': 'GB-london',
+            'fromTitle': 'GB, London Victoria Station',
+            'to': 'ES-talin',
+            'toTitle': 'ES, Talin Seaport Station',
+			'type': 'train',
+			'other': {
+				'number': '175',
+				'wagon': '12',
+				'seat': '22',
+				'linen': false
+			}
+        }
+    ]
+	
+	cardsErr = [
+        {
+            'from': 'ES-talin',
+            'fromTitle': 'ES, Talin Seaport Station',
+            'to': 'RU-magadan',
+            'toTitle': 'РФ, Магадан Аэропорт Чарухино',
+			'type': 'plane',
+			'other': {
+				'number': '266',
+				'seat': 'F17',
+				'food': false
+			}
+        },
+        {
+            'from': 'US-chicago',
+            'fromTitle': 'US, Chicago Nation Station',
+            'to': 'FR-paris',
+            'toTitle': 'FR, Gare St. Lazare',
+			'type': 'plane',
+			'other': {
+				'number': '75',
+				'seat': 'A43',
+				'food': true
+			}
+        },
+        {
+            'from': 'GB-london',
+            'fromTitle': 'GB, London Victoria Station',
+            'to': 'ES-talin',
+            'toTitle': 'ES, Talin Seaport Station',
+			'type': 'train',
+			'other': {
+				'number': '175',
+				'wagon': '12',
+				'seat': '22',
+				'linen': false
+			}
+        }
+    ]
+//////////////////////////////////////////////////	
+//////////////Блок тестирования TravelCardsWorker
+	
+	var //сюда записать cardsOk или cardsErr - валидный или не валидный набор карточек
+		cardsWrapper = document.getElementById('cardsWrapper'),//область бля вывода карточек
+		routeWrapper = document.getElementById('routeWrapper'),
+		validButton = document.getElementById('valid'),
+		invalidButton = document.getElementById('invalid');
+		
+		validButton.addEventListener('click', function(){test(cardsOk)});
+		invalidButton.addEventListener('click', function(){test(cardsErr)});
+	
+	
+	function test(cards){
+	var	tcw = new TravelCardsWorker();
+		cardsWrapper.innerHTML = tcw.outputCards(cards);//карточки в первоначальном не отсортированном виде
+		routeWrapper.innerHTML = tcw.outputRoute(cards);//текстовый маршрут
+		
+		validButton.style.display = "none";
+		invalidButton.style.display = "none";
+	}
+	
+/////////////////////////////////////////////////
+</script>
+</body>
+</html>
